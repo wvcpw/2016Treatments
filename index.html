@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>2016 Treatments</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+		<link rel="stylesheet" type="text/css" href="css/own_style.css">
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+		<script src="js/leaflet-hash.js"></script>
+		<script src="js/Autolinker.min.js"></script>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	</head>
+	<body>
+		<div id="map"></div>
+		<script src="data/exp_Deficiencies.js"></script>
+		<script src="data/exp_2016RoadstobeTreated.js"></script>
+		<script>
+		var map = L.map('map', {
+			zoomControl:true, maxZoom:19
+		}).fitBounds([[40.6799598524,-112.02789397],[40.7108176697,-111.96091061]]);
+		var hash = new L.Hash(map);
+		var additional_attrib = 'created w. <a href="https://github.com/geolicious/qgis2leaf" target ="_blank">qgis2leaf</a> by <a href="http://www.geolicious.de" target ="_blank">Geolicious</a> & contributors<br>';
+		var feature_group = new L.featureGroup([]);
+		var raster_group = new L.LayerGroup([]);
+		var basemap_0 = L.tileLayer('http://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png', { 
+			attribution: additional_attrib + '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>, &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+		});	
+		basemap_0.addTo(map);	
+		var layerOrder=new Array();
+		function pop_2016RoadstobeTreated(feature, layer) {					
+			var popupContent = '<table><tr><th scope="row">OBJECTID_1</th><td>' + Autolinker.link(String(feature.properties['OBJECTID_1'])) + '</td></tr><tr><th scope="row">OBJECTID</th><td>' + Autolinker.link(String(feature.properties['OBJECTID'])) + '</td></tr><tr><th scope="row">TARGET_FID</th><td>' + Autolinker.link(String(feature.properties['TARGET_FID'])) + '</td></tr><tr><th scope="row">STREET_Seg</th><td>' + Autolinker.link(String(feature.properties['STREET_Seg'])) + '</td></tr><tr><th scope="row">FROM_</th><td>' + Autolinker.link(String(feature.properties['FROM_'])) + '</td></tr><tr><th scope="row">TO_</th><td>' + Autolinker.link(String(feature.properties['TO_'])) + '</td></tr><tr><th scope="row">RID</th><td>' + Autolinker.link(String(feature.properties['RID'])) + '</td></tr><tr><th scope="row">SQYD</th><td>' + Autolinker.link(String(feature.properties['SQYD'])) + '</td></tr><tr><th scope="row">MAINT_ZONE</th><td>' + Autolinker.link(String(feature.properties['MAINT_ZONE'])) + '</td></tr><tr><th scope="row">SUB_NAME</th><td>' + Autolinker.link(String(feature.properties['SUB_NAME'])) + '</td></tr><tr><th scope="row">YEAR_CONST</th><td>' + Autolinker.link(String(feature.properties['YEAR_CONST'])) + '</td></tr><tr><th scope="row">LABEL</th><td>' + Autolinker.link(String(feature.properties['LABEL'])) + '</td></tr><tr><th scope="row">OWNERSHIP</th><td>' + Autolinker.link(String(feature.properties['OWNERSHIP'])) + '</td></tr><tr><th scope="row">RIN_NO</th><td>' + Autolinker.link(String(feature.properties['RIN_NO'])) + '</td></tr><tr><th scope="row">GUID</th><td>' + Autolinker.link(String(feature.properties['GUID'])) + '</td></tr><tr><th scope="row">PhotoNo</th><td>' + Autolinker.link(String(feature.properties['PhotoNo'])) + '</td></tr><tr><th scope="row">AsphaltDep</th><td>' + Autolinker.link(String(feature.properties['AsphaltDep'])) + '</td></tr><tr><th scope="row">RoadBase</th><td>' + Autolinker.link(String(feature.properties['RoadBase'])) + '</td></tr><tr><th scope="row">GranularBo</th><td>' + Autolinker.link(String(feature.properties['GranularBo'])) + '</td></tr><tr><th scope="row">Position</th><td>' + Autolinker.link(String(feature.properties['Position'])) + '</td></tr><tr><th scope="row">GeoTextile</th><td>' + Autolinker.link(String(feature.properties['GeoTextile'])) + '</td></tr><tr><th scope="row">FabricPosi</th><td>' + Autolinker.link(String(feature.properties['FabricPosi'])) + '</td></tr><tr><th scope="row">Comments</th><td>' + Autolinker.link(String(feature.properties['Comments'])) + '</td></tr><tr><th scope="row">Shape_Leng</th><td>' + Autolinker.link(String(feature.properties['Shape_Leng'])) + '</td></tr><tr><th scope="row">URL</th><td>' + Autolinker.link(String(feature.properties['URL'])) + '</td></tr><tr><th scope="row">PROP_MAINT</th><td>' + Autolinker.link(String(feature.properties['PROP_MAINT'])) + '</td></tr><tr><th scope="row">LAST_MAINT</th><td>' + Autolinker.link(String(feature.properties['LAST_MAINT'])) + '</td></tr><tr><th scope="row">LAST_MAI_1</th><td>' + Autolinker.link(String(feature.properties['LAST_MAI_1'])) + '</td></tr><tr><th scope="row">Shape_STAr</th><td>' + Autolinker.link(String(feature.properties['Shape_STAr'])) + '</td></tr><tr><th scope="row">Shape_STLe</th><td>' + Autolinker.link(String(feature.properties['Shape_STLe'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+
+		function doStyle2016RoadstobeTreated(feature) {
+				return {
+					color: '#e90003',
+					fillColor: '#f4ff20',
+					weight: 3.3,
+					dashArray: '',
+					opacity: 0.25,
+					fillOpacity: 0.25
+				};
+
+		}
+		var exp_2016RoadstobeTreatedJSON = new L.geoJson(exp_2016RoadstobeTreated,{
+			onEachFeature: pop_2016RoadstobeTreated,
+			style: doStyle2016RoadstobeTreated
+		});
+		layerOrder[layerOrder.length] = exp_2016RoadstobeTreatedJSON;
+		for (index = 0; index < layerOrder.length; index++) {
+			feature_group.removeLayer(layerOrder[index]);feature_group.addLayer(layerOrder[index]);
+		}
+		//add comment sign to hide this layer on the map in the initial view.
+		feature_group.addLayer(exp_2016RoadstobeTreatedJSON);
+		function pop_Deficiencies(feature, layer) {					
+			var popupContent = '<table><tr><th scope="row">OBJECTID</th><td>' + Autolinker.link(String(feature.properties['OBJECTID'])) + '</td></tr><tr><th scope="row">STREET_NAM</th><td>' + Autolinker.link(String(feature.properties['STREET_NAM'])) + '</td></tr><tr><th scope="row">INVENTORY_</th><td>' + Autolinker.link(String(feature.properties['INVENTORY_'])) + '</td></tr><tr><th scope="row">EXTENTS</th><td>' + Autolinker.link(String(feature.properties['EXTENTS'])) + '</td></tr><tr><th scope="row">CONDITION</th><td>' + Autolinker.link(String(feature.properties['CONDITION'])) + '</td></tr><tr><th scope="row">SQFT</th><td>' + Autolinker.link(String(feature.properties['SQFT'])) + '</td></tr><tr><th scope="row">TREATMENT</th><td>' + Autolinker.link(String(feature.properties['TREATMENT'])) + '</td></tr><tr><th scope="row">STATUS</th><td>' + Autolinker.link(String(feature.properties['STATUS'])) + '</td></tr><tr><th scope="row">COMPLETE_D</th><td>' + Autolinker.link(String(feature.properties['COMPLETE_D'])) + '</td></tr><tr><th scope="row">NOTES</th><td>' + Autolinker.link(String(feature.properties['NOTES'])) + '</td></tr><tr><th scope="row">GlobalID</th><td>' + Autolinker.link(String(feature.properties['GlobalID'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+
+		var exp_DeficienciesJSON = new L.geoJson(exp_Deficiencies,{
+			onEachFeature: pop_Deficiencies,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+					radius: 4.0,
+					fillColor: '#cf9c5e',
+					color: '#000000',
+					weight: 1,
+					opacity: 1.0,
+					fillOpacity: 1.0
+				})
+			}
+		});
+		//add comment sign to hide this layer on the map in the initial view.
+		feature_group.addLayer(exp_DeficienciesJSON);
+
+		feature_group.addTo(map);
+		var title = new L.Control();
+		title.onAdd = function (map) {
+			this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+			this.update();
+			return this._div;
+		};
+		title.update = function () {
+			this._div.innerHTML = '<h2>2016 Pavement Treatments</h2>Identify missing road sections that need to be treated'
+		};
+		title.addTo(map);
+		var legend = L.control({position: 'bottomright'});
+		legend.onAdd = function (map) {
+			var div = L.DomUtil.create('div', 'info legend');
+			div.innerHTML = "<h3>Legend</h3><table></table>";
+    		return div;
+		};
+		legend.addTo(map);
+	var baseMaps = {
+		'Thunderforest Transport': basemap_0
+	};
+		L.control.layers(baseMaps,{"Deficiencies": exp_DeficienciesJSON,"2016RoadstobeTreated": exp_2016RoadstobeTreatedJSON},{collapsed:false}).addTo(map);
+		L.control.scale({options: {position: 'bottomleft',maxWidth: 100,metric: true,imperial: false,updateWhenIdle: false}}).addTo(map);
+	</script>
+</body>
+</html>
